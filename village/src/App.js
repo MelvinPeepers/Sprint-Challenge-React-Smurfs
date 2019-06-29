@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import axios from "axios";
 
 import "./App.css";
@@ -41,10 +41,10 @@ class App extends Component {
             <h1>Smurf Village</h1>
           </div>
           <li>
-            <Link to='/'>Home</Link>
+            <NavLink to='/'>Home</NavLink>
           </li>
           <li>
-            <Link to='/form'>Add New Smurf</Link>
+            <NavLink to='/smurf-form'>Add New Smurf</NavLink>
           </li>
         </ul>
 
@@ -61,7 +61,7 @@ class App extends Component {
         />
 
         <Route
-          path='/form'
+          path='/smurf-form'
           exact
           render={props => (
             <SmurfForm {...props} updateSmurfs={this.updateSmurfs} />
