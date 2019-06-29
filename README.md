@@ -28,7 +28,7 @@ In this challenge, you will create a Single Page Application complete with Clien
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] Explain the differences between `client-side routing` and `server-side routing`.
+- [x] Explain the differences between `client-side routing` and `server-side routing`.
 
 With Server-Side routing, when you click on a link, a request is made for a new page from the server.
 Each time you click on a link the whole page refreshes, this is because a new GET request is sent to
@@ -37,15 +37,15 @@ the server, which responds with new information.
 With Client-Side routing, the route is handled internally, no request is made to a server when clicking
 on links. Additionally, with Client-Side routing, the whole page won’t refresh.
 
-- [ ] What does HTTP stand for?
+- [x] What does HTTP stand for?
 
 HTTP stands for TyperText Transfer Protocol.
 
-- [ ] What does CRUD stand for?
+- [x] What does CRUD stand for?
 
 CRUD stands for Create, Retrieve, Update, Delete.
 
-- [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+- [x] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
 
 POST - Creates or adds new resources
 
@@ -55,7 +55,7 @@ PUT - Updates or makes changes to specific resources
 
 DELETE - Deletes or removes date from the server
 
-- [ ] Mention three tools we can use to make AJAX requests.
+- [x] Mention three tools we can use to make AJAX requests.
 
 SuperAgent
 fetch
@@ -82,8 +82,8 @@ Follow these steps to set up and work on your project:
 Follow these steps for completing your project:
 
 - [x] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's Repo).
-- [ ] Add your Project Manager as a Reviewer on the Pull-request
-- [ ] PM then will count the HW as done by merging the branch back into master.
+- [x] Add your Project Manager as a Reviewer on the Pull-request
+- [x] PM then will count the HW as done by merging the branch back into master.
 
 ## Minimum Viable Product
 
