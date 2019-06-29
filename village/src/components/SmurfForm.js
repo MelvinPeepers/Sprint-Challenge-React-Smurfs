@@ -14,18 +14,24 @@ class SmurfForm extends Component {
   addSmurf = event => {
     event.preventDefault();
     // add code to create the smurf using the api
+    const { name, age, height } = this.state;
+    const newSmurf = { name, age, height };
+
     axios
-      .post("http://localhost:3333/smurfs", this.state)
+      .post("http://localhost:3333/smurfs", newSmurf)
       .then(response => {
-        this.setState({
-          name: "",
-          age: "",
-          height: ""
-        });
+        this.props.updateSmurfs(response.data);
+        this.props.history.push("/smurfs");
       })
       .catch(error => {
         console.log("error", error);
       });
+
+    this.setState({
+      name: "",
+      age: "",
+      height: ""
+    });
   };
 
   handleInputChange = e => {
@@ -34,26 +40,33 @@ class SmurfForm extends Component {
 
   render() {
     return (
-      <div className='SmurfForm'>
+      <div className='SmurfForm form'>
+        <h1>Add New Smurf</h1>
         <form onSubmit={this.addSmurf}>
-          <input
-            onChange={this.handleInputChange}
-            placeholder='name'
-            value={this.state.name}
-            name='name'
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder='age'
-            value={this.state.age}
-            name='age'
-          />
-          <input
-            onChange={this.handleInputChange}
-            placeholder='height'
-            value={this.state.height}
-            name='height'
-          />
+          <div className='input-field'>
+            <input
+              onChange={this.handleInputChange}
+              placeholder='name'
+              value={this.state.name}
+              name='name'
+            />
+          </div>
+          <div className='input-field'>
+            <input
+              onChange={this.handleInputChange}
+              placeholder='age'
+              value={this.state.age}
+              name='age'
+            />
+          </div>
+          <div className='input-field'>
+            <input
+              onChange={this.handleInputChange}
+              placeholder='height'
+              value={this.state.height}
+              name='height'
+            />
+          </div>
           <button type='submit'>Add to the village</button>
         </form>
       </div>

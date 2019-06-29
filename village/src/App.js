@@ -27,14 +27,46 @@ class App extends Component {
         console.log("No smurffing way, there's an error!", error);
       });
   }
+
+  updateSmurfs = newSmurfs => {
+    this.setState({ smurfs: newSmurfs });
+  };
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
     return (
       <div className='App'>
-        <Home />
-        <SmurfForm />
-        <Smurfs smurfs={this.state.smurfs} />
+        <ul className='navbar'>
+          <div className='navtitle'>
+            <h1>Smurf Village</h1>
+          </div>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/form'>Add New Smurf</Link>
+          </li>
+        </ul>
+
+        <Route
+          path='/'
+          exact
+          render={props => <Home {...props} smurfs={this.state.smurfs} />}
+        />
+
+        <Route
+          path='/smurfs'
+          exact
+          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+        />
+
+        <Route
+          path='/form'
+          exact
+          render={props => (
+            <SmurfForm {...props} updateSmurfs={this.updateSmurfs} />
+          )}
+        />
       </div>
     );
   }
