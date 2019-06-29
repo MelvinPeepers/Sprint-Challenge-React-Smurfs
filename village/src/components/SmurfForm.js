@@ -22,6 +22,8 @@ class SmurfForm extends Component {
       .then(response => {
         this.props.updateSmurfs(response.data);
         this.props.history.push("/smurfs");
+        console.log(response);
+        // Post working smurfs being added
       })
       .catch(error => {
         console.log("error", error);
