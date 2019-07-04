@@ -6,6 +6,7 @@ import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
 import Home from "./components/Home";
+import Edit from "./components/Edit";
 
 class App extends Component {
   constructor(props) {
@@ -62,6 +63,11 @@ class App extends Component {
           render={props => (
             <SmurfForm {...props} updateSmurfs={this.updateSmurfs} />
           )}
+        />
+        <Route
+          path='/edit/:id'
+          exact
+          render={props => <Edit {...props} updateSmurfs={this.updateSmurfs} />}
         />
       </div>
     );

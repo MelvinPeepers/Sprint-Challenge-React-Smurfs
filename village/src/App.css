@@ -225,3 +225,11 @@ input::placeholder {
   font-size: 16px;
   border-radius: 15px;
 }
+
+.editSmurf {
+  padding: 15px 0;
+  text-decoration: none;
+}
+.editSmurf a {
+  text-decoration: none;
+}
