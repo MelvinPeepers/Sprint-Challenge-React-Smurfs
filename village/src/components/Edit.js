@@ -62,7 +62,33 @@ export class Edit extends Component {
     });
   };
 
-  deleteSmurf = () => {};
+  deleteSmurf = event => {
+    event.preventDefault();
+
+    const id = this.props.match.params.id;
+    axios
+      .delete(`http://localhost:3333/smurfs/${id}`)
+      .then(response => {
+        // passing through the new list data
+        this.props.updateSmurfs(response.data);
+        this.props.history.push("/smurfs");
+        this.setState({
+          errorMessage: null
+        });
+        // Post working smurfs being added
+      })
+      .catch(error => {
+        this.setState({
+          errorMessage: error.response.data.error
+        });
+      });
+
+    this.setState({
+      name: "",
+      age: "",
+      height: ""
+    });
+  };
 
   render() {
     const { name, age, height, errorMessage } = this.state;
