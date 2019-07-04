@@ -11,23 +11,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: []
+      smurfs: [],
+      loading: false
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
-  componentDidMount() {
-    axios
-      .get("http://localhost:3333/smurfs")
-      .then(response => {
-        this.setState({
-          smurfs: response.data
-        });
-      })
-      .catch(error => {
-        console.log("No smurffing way, there's an error!", error);
-      });
-  }
+  async componentDidMount() {
+    this.setState({ loading: true });
 
+    const response = await axios.get("http://localhost:3333/smurfs");
+
+    this.setState({ smurfs: response.data, loading: false });
+  }
+  // will pass a function to the 'SmurfForm' to call when it gets new data
   updateSmurfs = newSmurfs => {
     this.setState({ smurfs: newSmurfs });
   };
@@ -36,17 +32,17 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <ul className='navbar'>
-          <div className='navtitle'>
-            <h1>Smurf Village</h1>
-          </div>
-          <li>
-            <NavLink to='/'>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to='/smurf-form'>Add New Smurf</NavLink>
-          </li>
-        </ul>
+        <div className='navbar'>
+          <h1>Smurf Village</h1>
+          <ul className='navLinks'>
+            <li>
+              <NavLink to='/'>Home</NavLink>
+            </li>
+            <li>
+              <NavLink to='/smurf-form'>Add New Smurf</NavLink>
+            </li>
+          </ul>
+        </div>
 
         <Route
           path='/'

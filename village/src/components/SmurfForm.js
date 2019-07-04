@@ -7,7 +7,8 @@ class SmurfForm extends Component {
     this.state = {
       name: "",
       age: "",
-      height: ""
+      height: "",
+      errorMessage: null
     };
   }
 
@@ -22,11 +23,15 @@ class SmurfForm extends Component {
       .then(response => {
         this.props.updateSmurfs(response.data);
         this.props.history.push("/smurfs");
-        console.log(response);
+        this.setState({
+          errorMessage: null
+        });
         // Post working smurfs being added
       })
       .catch(error => {
-        console.log("error", error);
+        this.setState({
+          errorMessage: error.response.data.error
+        });
       });
 
     this.setState({
@@ -41,15 +46,18 @@ class SmurfForm extends Component {
   };
 
   render() {
+    const { name, age, height, errorMessage } = this.state;
+
     return (
       <div className='SmurfForm form'>
         <h1>Add New Smurf</h1>
+        <p>{errorMessage}</p>
         <form onSubmit={this.addSmurf}>
           <div className='input-field'>
             <input
               onChange={this.handleInputChange}
               placeholder='name'
-              value={this.state.name}
+              value={name}
               name='name'
             />
           </div>
@@ -57,7 +65,7 @@ class SmurfForm extends Component {
             <input
               onChange={this.handleInputChange}
               placeholder='age'
-              value={this.state.age}
+              value={age}
               name='age'
             />
           </div>
@@ -65,7 +73,7 @@ class SmurfForm extends Component {
             <input
               onChange={this.handleInputChange}
               placeholder='height'
-              value={this.state.height}
+              value={height}
               name='height'
             />
           </div>

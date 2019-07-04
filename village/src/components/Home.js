@@ -1,13 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function Home() {
+const Home = ({ logo }) => {
   return (
     <div className='home-container'>
-      <h1>Welcome to Smurf Village</h1>
-      <Link to='/smurfs'>Enter</Link>
+      <h2>
+        <Link to='/smurfs'>Enter</Link> {logo}
+      </h2>
     </div>
   );
-}
+};
+
+Home.defaultProps = {
+  logo: "Smurf Village"
+};
+
+Home.propTypes = {
+  logo: PropTypes.string.isRequired
+};
 
 export default Home;
