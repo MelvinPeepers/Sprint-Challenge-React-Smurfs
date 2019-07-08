@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class SmurfForm extends Component {
+export class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,14 +12,34 @@ class SmurfForm extends Component {
     };
   }
 
-  addSmurf = event => {
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    axios
+      .get(`http://localhost:3333/smurfs/${id}`)
+      .then(response => {
+        const { name, age, height } = response.data;
+        this.setState({ name, age, height });
+      })
+      .catch(error => {
+        this.setState({
+          errorMessage: error.response.data.error
+        });
+      });
+  }
+
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  updateSmurf = event => {
     event.preventDefault();
-    // add code to create the smurf using the api
+
     const { name, age, height } = this.state;
     const newSmurf = { name, age, height };
+    const id = this.props.match.params.id;
 
     axios
-      .post("http://localhost:3333/smurfs", newSmurf)
+      .put(`http://localhost:3333/smurfs/${id}`, newSmurf)
       .then(response => {
         // passing through the new list data
         this.props.updateSmurfs(response.data);
@@ -42,8 +62,32 @@ class SmurfForm extends Component {
     });
   };
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  deleteSmurf = event => {
+    event.preventDefault();
+
+    const id = this.props.match.params.id;
+    axios
+      .delete(`http://localhost:3333/smurfs/${id}`)
+      .then(response => {
+        // passing through the new list data
+        this.props.updateSmurfs(response.data);
+        this.props.history.push("/smurfs");
+        this.setState({
+          errorMessage: null
+        });
+        // Post working smurfs being added
+      })
+      .catch(error => {
+        this.setState({
+          errorMessage: error.response.data.error
+        });
+      });
+
+    this.setState({
+      name: "",
+      age: "",
+      height: ""
+    });
   };
 
   render() {
@@ -51,9 +95,9 @@ class SmurfForm extends Component {
 
     return (
       <div className='SmurfForm form'>
-        <h1>Add New Smurf</h1>
+        <h1>Edit Smurf</h1>
         <p>{errorMessage}</p>
-        <form onSubmit={this.addSmurf}>
+        <form onSubmit={this.updateSmurf}>
           <div className='input-field'>
             <input
               onChange={this.handleInputChange}
@@ -78,11 +122,14 @@ class SmurfForm extends Component {
               name='height'
             />
           </div>
-          <button type='submit'>Add to the village</button>
+          <button type='submit'>Update</button>
+          <button onClick={this.deleteSmurf} type='submit'>
+            Delete
+          </button>
         </form>
       </div>
     );
   }
 }
 
-export default SmurfForm;
+export default Edit;
